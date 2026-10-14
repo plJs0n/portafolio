@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jeysson Cobeñas · Desarrollador backend</title>
+  <meta name="description"
+    content="Portafolio de Jeysson Cobeñas, estudiante de Ingeniería de Sistemas e Informática (UNAP) en Iquitos. Desarrollo backend con NestJS, Spring Boot y PostgreSQL.">
+  <meta name="theme-color" content="#0B3A42">
+  <meta property="og:title" content="Jeysson Cobeñas · Desarrollador backend">
+  <meta property="og:description"
+    content="APIs REST con NestJS y Spring Boot, bases de datos relacionales y despliegue en la nube. Desde Iquitos, Perú.">
+  <meta property="og:type" content="website">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <!-- Tailwind CSS desde la web (CDN, versión fija) -->
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            mist: "#edf2ef",
+            moss: "#e1ebe6",
+            ink: "#102a2e",
+            muted: "#4a6266",
+            river: "#0b3a42",
+            "river-deep": "#072b32",
+            "river-soft": "#2f7f86",
+            "river-mute": "#b9d3cf",
+            "on-river": "#e8f1ee",
+            leaf: "#2f7a55",
+            sun: "#e9b824",
+            line: "#c3d3cd"
+          },
+          fontFamily: {
+            display: ['"Bricolage Grotesque"', '"Segoe UI"', "system-ui", "sans-serif"],
+            body: ['"Instrument Sans"', '"Segoe UI"', "system-ui", "sans-serif"]
+          }
+        }
+      }
+    };
+  </script>
+  <style type="text/tailwindcss">
+    @layer base {
+      html { --header-height: 8rem; scroll-behavior: smooth; scroll-padding-top: calc(var(--header-height) + 1rem); }
+      body { padding-top: var(--header-height); @apply bg-mist font-body text-[1.0625rem] leading-relaxed text-ink antialiased; }
+      h1, h2, h3 { @apply font-display leading-tight; }
+      :focus-visible { outline: 3px solid theme("colors.sun"); outline-offset: 3px; border-radius: 2px; }
+    }
+    @layer components {
+      .wrap { @apply mx-auto w-full max-w-[1080px] px-5 sm:px-8; }
+    }
+
+    @media (min-width: 481px) {
+      html { --header-height: 5rem; }
+    }
+
+    /* Río del hero: se dibuja una sola vez al cargar */
+    .river path { fill: none; stroke-linecap: round; }
+    .river-wide { stroke: theme("colors.river-soft"); stroke-width: 26; opacity: 0.22; }
+    .river-line { stroke: #7fc0c0; stroke-width: 3; }
+    .river-wide, .river-line {
+      stroke-dasharray: 1900;
+      stroke-dashoffset: 1900;
+      animation: flow 2.6s ease-out 0.2s forwards;
+    }
+    .river-dot { fill: theme("colors.sun"); opacity: 0; animation: appear 0.5s ease-out 2.6s forwards; }
+    @keyframes flow { to { stroke-dashoffset: 0; } }
+    @keyframes appear { to { opacity: 1; } }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .river-wide, .river-line { animation: none; stroke-dashoffset: 0; }
+      .river-dot { animation: none; opacity: 1; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="fixed inset-x-0 top-0 z-50 h-[var(--header-height)] bg-river text-on-river">
+    <nav
+      class="wrap flex h-full flex-col items-start justify-center gap-3 min-[481px]:flex-row min-[481px]:items-center min-[481px]:justify-between"
+      aria-label="Principal">
+      <a class="font-display text-xl font-extrabold tracking-wide hover:text-sun" href="#inicio">JC</a>
+      <ul class="flex flex-wrap gap-x-6 gap-y-1">
+        <li><a class="border-b border-transparent py-1 font-medium hover:border-sun hover:text-sun"
+            href="#sobre-mi">Sobre mí</a></li>
+        <li><a class="border-b border-transparent py-1 font-medium hover:border-sun hover:text-sun"
+            href="#trabajo">Trabajo</a></li>
+        <li><a class="border-b border-transparent py-1 font-medium hover:border-sun hover:text-sun"
+            href="#habilidades">Habilidades</a></li>
+        <li><a class="border-b border-transparent py-1 font-medium hover:border-sun hover:text-sun"
+            href="#formacion">Formación</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section id="inicio" class="relative overflow-hidden bg-river pb-40 text-on-river sm:pb-52"
+      aria-label="Presentación">
+      <div class="wrap">
+        <div class="grid items-start gap-10 pt-10 md:grid-cols-[1fr_auto] md:gap-14 md:pt-16">
+          <!-- Texto principal -->
+          <div>
+            <h1 class="mb-7 text-[clamp(3.2rem,9.5vw,7.5rem)] font-extrabold leading-[0.9] tracking-[-0.035em]">
+              <span class="block">Jeysson</span>
+              <span class="block">Cobeñas</span>
+            </h1>
+            <p class="mb-8 max-w-xl text-[clamp(1.1rem,2.2vw,1.3rem)] leading-normal">
+              Estudiante de Ingeniería de Sistemas e Informática (UNAP) con experiencia práctica en desarrollo backend
+              utilizando Java, Spring Boot, NestJS, bases de datos relacionales y despliegue en la nube. Certificado en
+              Scrum Fundamentals (SFC), participando en proyectos que requieren alto rendimiento y disponibilidad.
+            </p>
+            <div class="mb-12 flex flex-wrap gap-3">
+              <a class="inline-block rounded-full border-2 border-transparent bg-sun px-6 py-3 font-semibold text-ink hover:bg-[#f5cb4a]"
+                href="#trabajo">Ver proyectos</a>
+              <a class="inline-block rounded-full border-2 border-river-soft px-6 py-3 font-semibold hover:border-sun hover:text-sun"
+                href="CV_Jeysson_Cobenas.pdf" download>Descargar CV</a>
+            </div>
+
+            <dl class="flex flex-wrap gap-x-12 gap-y-5">
+              <div>
+                <dt class="text-sm text-[#9cc0bc]">Estudios</dt>
+                <dd class="font-medium">IX semestre, UNAP (FISI)</dd>
+              </div>
+              <div>
+                <dt class="text-sm text-[#9cc0bc]">Proyecto en línea</dt>
+                <dd class="font-medium"><a class="underline underline-offset-4 hover:text-sun"
+                    href="https://flora-amazonica.com" target="_blank" rel="noopener">flora-amazonica.com</a></dd>
+              </div>
+            </dl>
+          </div>
+
+          <!-- Imagen + enlaces -->
+          <aside id="sobre-mi" class="w-full max-w-[16rem] md:w-72 md:max-w-none" aria-label="Foto y redes">
+            <figure class="m-0">
+              <img src="Retrato.png" alt="Foto de Jeysson Cobeñas"
+                class="aspect-[4/5] w-full rounded-2xl object-cover">
+            </figure>
+
+            <ul class="mt-4 flex flex-wrap gap-3">
+              <li>
+                <a class="inline-flex items-center gap-2 rounded-full border-2 border-river-soft px-4 py-2 font-semibold hover:border-sun hover:text-sun"
+                  href="https://github.com/plJs0n" target="_blank" rel="noopener">
+                  <svg class="size-5 fill-current" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path
+                      d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+                  </svg>
+                  GitHub
+                </a>
+              </li>
+              <li>
+                <!-- Reemplaza TU-USUARIO por tu perfil real de LinkedIn -->
+                <a class="inline-flex items-center gap-2 rounded-full border-2 border-river-soft px-4 py-2 font-semibold hover:border-sun hover:text-sun"
+                  href="https://linkedin.com/in/jeysson-cobeñas-038901431" target="_blank" rel="noopener">
+                  <svg class="size-5 fill-current" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path
+                      d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                  </svg>
+                  LinkedIn
+                </a>
+              </li>
+            </ul>
+          </aside>
+        </div>
+      </div>
+
+      <svg class="river pointer-events-none absolute bottom-0 left-0 h-[clamp(110px,20vw,220px)] w-full"
+        viewBox="0 0 1200 220" preserveAspectRatio="xMidYMax slice" aria-hidden="true" focusable="false">
+        <path class="river-wide" d="M-20,160 C120,50 300,30 430,120 S660,225 810,135 S980,40 1120,96" />
+        <path class="river-line" d="M-20,160 C120,50 300,30 430,120 S660,225 810,135 S980,40 1120,96" />
+        <circle class="river-dot" cx="1120" cy="96" r="9" />
+      </svg>
+    </section>
+    <!-- Trabajo -->
+    <section id="trabajo" class="py-16 sm:py-24" aria-labelledby="t-trabajo">
+      <div class="wrap">
+        <h2 id="t-trabajo" class="mb-3 text-[clamp(2rem,5vw,3.25rem)] font-bold tracking-tight">Trabajo y proyectos</h2>
+        <p class="mb-12 text-muted">De lo más reciente a lo más antiguo.</p>
+
+        <ol class="list-none">
+          <li class="group grid gap-y-1 pb-12 last:pb-0 md:grid-cols-[12rem_1fr] md:gap-x-10">
+            <p class="pl-8 pt-1 font-display font-bold leading-snug text-leaf md:pl-0">Setiembre 2026 – Actualidad</p>
+            <div
+              class="relative border-l-2 border-line pl-8 before:absolute before:-left-[8px] before:top-[0.55rem] before:size-[14px] before:rounded-full before:border-[3px] before:border-river before:bg-sun">
+              <h3 class="mb-1 text-[clamp(1.4rem,3vw,1.85rem)] font-bold tracking-tight">Hospital Regional de Loreto
+              </h3>
+              <p class="mb-4 font-medium text-muted">Voluntario · Análisis de requisitos y documentación de software</p>
+              <ul class="max-w-2xl list-none space-y-2">
+                <li
+                  class="relative pl-4 before:absolute before:left-0 before:top-[0.7em] before:size-1.5 before:rounded-full before:bg-leaf">
+                  Levantamiento y análisis de requisitos de un software hospitalario ya desarrollado, verificando su
+                  cumplimiento con la Directiva Administrativa para la Programación de Turnos de Trabajo del Profesional
+                  de la Salud (IPRESS del MINSA y gobiernos regionales), considerando que el hospital es de nivel III-1.
+                </li>
+                <li
+                  class="relative pl-4 before:absolute before:left-0 before:top-[0.7em] before:size-1.5 before:rounded-full before:bg-leaf">
+                  Elaboración de documentación técnica, incluyendo el diagrama de clases del sistema (UML).</li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="group grid gap-y-1 pb-12 last:pb-0 md:grid-cols-[12rem_1fr] md:gap-x-10">
+            <p class="pl-8 pt-1 font-display font-bold leading-snug text-leaf md:pl-0">Abril 2026 – Julio 2026</p>
+            <div
+              class="relative border-l-2 border-line pl-8 before:absolute before:-left-[8px] before:top-[0.55rem] before:size-[14px] before:rounded-full before:border-[3px] before:border-river before:bg-mist">
+              <h3 class="mb-1 text-[clamp(1.4rem,3vw,1.85rem)] font-bold tracking-tight">Flora Amazónica</h3>
+              <p class="mb-4 font-medium text-muted">Desarrollador backend · Proyecto institucional para una facultad de
+                la UNAP</p>
+              <ul class="max-w-2xl list-none space-y-2">
+                <li
+                  class="relative pl-4 before:absolute before:left-0 before:top-[0.7em] before:size-1.5 before:rounded-full before:bg-leaf">
+                  Diseño e implementación de una API REST en NestJS y PostgreSQL para el registro, validación y consulta
+                  de especies de flora amazónica.</li>
+                <li
+                  class="relative pl-4 before:absolute before:left-0 before:top-[0.7em] before:size-1.5 before:rounded-full before:bg-leaf">
+                  Autenticación JWT con control de acceso por roles, carga de fotografías en Cloudinary, códigos de
+                  seguimiento autogenerados y cálculo del DAP (diámetro a la altura del pecho).</li>
+                <li
+                  class="relative pl-4 before:absolute before:left-0 before:top-[0.7em] before:size-1.5 before:rounded-full before:bg-leaf">
+                  Despliegue en Railway con dominio propio activo: <a
+                    class="text-river underline underline-offset-4 hover:text-leaf" href="https://flora-amazonica.com"
+                    target="_blank" rel="noopener">flora-amazonica.com</a>.</li>
+              </ul>
+              <dl class="mt-5 grid max-w-2xl gap-2 border-t border-line pt-4">
+                <div class="grid gap-1 sm:grid-cols-[9.5rem_1fr] sm:gap-3">
+                  <dt class="font-semibold">Tecnologías</dt>
+                  <dd class="text-muted">NestJS, TypeScript, PostgreSQL, JWT, Cloudinary, Railway, Postman, Git/GitHub
+                  </dd>
+                </div>
+                <div class="grid gap-1 sm:grid-cols-[9.5rem_1fr] sm:gap-3">
+                  <dt class="font-semibold">Herramientas de IA</dt>
+                  <dd class="text-muted">Claude Code (agente de desarrollo)</dd>
+                </div>
+              </dl>
+            </div>
+          </li>
+
+          <li class="group grid gap-y-1 pb-12 last:pb-0 md:grid-cols-[12rem_1fr] md:gap-x-10">
+            <p class="pl-8 pt-1 font-display font-bold leading-snug text-leaf md:pl-0">Agosto 2025 – Noviembre 2025</p>
+            <div
+              class="relative border-l-2 border-line pl-8 before:absolute before:-left-[8px] before:top-[0.55rem] before:size-[14px] before:rounded-full before:border-[3px] before:border-river before:bg-mist">
+              <h3 class="mb-1 text-[clamp(1.4rem,3vw,1.85rem)] font-bold tracking-tight">Zoe Alexa · Reservas de
+                transporte fluvial</h3>
+              <p class="mb-4 font-medium text-muted">Desarrollador full stack · Empresa de transporte fluvial de Iquitos
+              </p>
+              <ul class="max-w-2xl list-none space-y-2">
+                <li
+                  class="relative pl-4 before:absolute before:left-0 before:top-[0.7em] before:size-1.5 before:rounded-full before:bg-leaf">
+                  Sistema de reserva de pasajes: backend con Spring Boot (modelo de datos con JPA, DTOs con MapStruct y
+                  repositorios con Spring Data) y frontend con React y TypeScript.</li>
+                <li
+                  class="relative pl-4 before:absolute before:left-0 before:top-[0.7em] before:size-1.5 before:rounded-full before:bg-leaf">
+                  Autenticación JWT y rutas protegidas por rol; especificación de 17 casos de uso (equipaje, comisiones
+                  de agencias y control de accesos).</li>
+                <li
+                  class="relative pl-4 before:absolute before:left-0 before:top-[0.7em] before:size-1.5 before:rounded-full before:bg-leaf">
+                  Código del backend: <a class="text-river underline underline-offset-4 hover:text-leaf"
+                    href="https://github.com/plJs0n/Backend-ZoeAlexa" target="_blank"
+                    rel="noopener">github.com/plJs0n/Backend-ZoeAlexa</a>.</li>
+              </ul>
+              <dl class="mt-5 grid max-w-2xl gap-2 border-t border-line pt-4">
+                <div class="grid gap-1 sm:grid-cols-[9.5rem_1fr] sm:gap-3">
+                  <dt class="font-semibold">Tecnologías</dt>
+                  <dd class="text-muted">Spring Boot, Java, JPA, MapStruct, React, TypeScript, Tailwind CSS, JWT,
+                    Git/GitHub</dd>
+                </div>
+                <div class="grid gap-1 sm:grid-cols-[9.5rem_1fr] sm:gap-3">
+                  <dt class="font-semibold">Herramientas de IA</dt>
+                  <dd class="text-muted">Claude (LLM en chat)</dd>
+                </div>
+              </dl>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Habilidades -->
+    <section id="habilidades" class="bg-moss py-16 sm:py-24" aria-labelledby="t-habilidades">
+      <div class="wrap">
+        <h2 id="t-habilidades" class="mb-3 text-[clamp(2rem,5vw,3.25rem)] font-bold tracking-tight">Habilidades</h2>
+        <dl class="mt-8 border-t border-line">
+          <div class="grid gap-1 border-b border-line py-4 sm:grid-cols-[15rem_1fr] sm:gap-4">
+            <dt class="font-display text-lg font-bold">Backend</dt>
+            <dd>NestJS, Spring Boot, APIs REST, autenticación JWT</dd>
+          </div>
+          <div class="grid gap-1 border-b border-line py-4 sm:grid-cols-[15rem_1fr] sm:gap-4">
+            <dt class="font-display text-lg font-bold">Lenguajes</dt>
+            <dd>TypeScript, Java, JavaScript</dd>
+          </div>
+          <div class="grid gap-1 border-b border-line py-4 sm:grid-cols-[15rem_1fr] sm:gap-4">
+            <dt class="font-display text-lg font-bold">Bases de datos</dt>
+            <dd>PostgreSQL, SQL Server</dd>
+          </div>
+          <div class="grid gap-1 border-b border-line py-4 sm:grid-cols-[15rem_1fr] sm:gap-4">
+            <dt class="font-display text-lg font-bold">Frontend</dt>
+            <dd>React, Tailwind CSS</dd>
+          </div>
+          <div class="grid gap-1 border-b border-line py-4 sm:grid-cols-[15rem_1fr] sm:gap-4">
+            <dt class="font-display text-lg font-bold">Herramientas</dt>
+            <dd>Git/GitHub, Postman</dd>
+          </div>
+          <div class="grid gap-1 border-b border-line py-4 sm:grid-cols-[15rem_1fr] sm:gap-4">
+            <dt class="font-display text-lg font-bold">Cloud y servicios</dt>
+            <dd>Railway, Cloudinary</dd>
+          </div>
+          <div class="grid gap-1 border-b border-line py-4 sm:grid-cols-[15rem_1fr] sm:gap-4">
+            <dt class="font-display text-lg font-bold">Metodologías y modelado</dt>
+            <dd>Scrum, XP, UML (diagrama de clases)</dd>
+          </div>
+          <div class="grid gap-1 border-b border-line py-4 sm:grid-cols-[15rem_1fr] sm:gap-4">
+            <dt class="font-display text-lg font-bold">IA aplicada al desarrollo</dt>
+            <dd>Claude Code (agente), Claude (LLM)</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- Formación -->
+    <section id="formacion" class="py-16 sm:py-24" aria-labelledby="t-formacion">
+      <div class="wrap">
+        <h2 id="t-formacion" class="mb-3 text-[clamp(2rem,5vw,3.25rem)] font-bold tracking-tight">Formación</h2>
+        <div class="mt-8 grid gap-10 md:grid-cols-3">
+          <div>
+            <h3 class="mb-3 text-xl font-bold text-river">Educación</h3>
+            <p class="mb-2"><strong>Ingeniería de Sistemas e Informática</strong></p>
+            <p class="mb-2">Estudiante, IX semestre<br>Universidad Nacional de la Amazonía Peruana (UNAP), FISI</p>
+          </div>
+          <div>
+            <h3 class="mb-3 text-xl font-bold text-river">Certificaciones</h3>
+            <ul class="list-none space-y-4">
+              <li><strong>Scrum Fundamentals Certified (SFC™)</strong><br>SCRUMstudy, octubre 2026</li>
+              <li><strong>Oracle Java Foundations</strong> (insignia digital)<br>Oracle, octubre 2026</li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="mb-3 text-xl font-bold text-river">Idiomas</h3>
+            <ul class="list-none space-y-4">
+              <li><strong>Español</strong><br>Nativo</li>
+              <li><strong>Inglés</strong><br>Básico (A2)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-river-deep py-6 text-sm text-[#9cc0bc]">
+    <div class="wrap flex flex-wrap justify-between gap-3">
+      <p class="m-0">© 2026 Jeysson Cobeñas.</p>
+    </div>
+  </footer>
+</body>
+
+</html>
